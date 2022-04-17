@@ -1,0 +1,9 @@
+# Ignore dataset files
+# !model/dataset/
+model/dataset/**/*.jpg
+
+# Ignore node package files
+node_modules
+
+# Ignore .ipynb_checkpoints 
+.ipynb_checkpoints
