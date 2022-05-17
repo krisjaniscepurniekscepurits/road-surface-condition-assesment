@@ -1,12 +1,11 @@
 // Imports
 const fs = require('fs').promises;
-// const { mod } = require('@tensorflow/tfjs');
 const tf = require("@tensorflow/tfjs");
 const tfnode = require("@tensorflow/tfjs-node");
 
 // Clasification classes
-const class_names = ['sauss', 'slapšs sniegs', 'apsnidzis', 'slapšs'];
-const image_size = 64;
+const class_names = ['saus', 'apsnidzis', 'slapjš'];
+const image_size = 128;
 const image_channels = 3;
 
 // Clasification logic
@@ -18,16 +17,6 @@ async function classify(file_path) {
     let imageBuffer = await fs.readFile(file_path);
     let tfImage = tfnode.node.decodeImage(imageBuffer).resizeBilinear([image_size, image_size]);
     let predict = model.predict(tfImage.reshape([1, image_size, image_size, image_channels]));
-    let predictions = predict.dataSync();
-    let probabilities = tf.softmax(predictions).dataSync();
-
-    for (let i = 0; i < probabilities.length; i++) {
-        const label = class_names[i];
-        const probability = probabilities[i] * 100;
-        console.log(`${label}: ${probability}`);
-    }
-    console.log("---------------");
-
     let image_class = tf.argMax(predict.dataSync());
 
     result.class = class_names[image_class.dataSync()];
