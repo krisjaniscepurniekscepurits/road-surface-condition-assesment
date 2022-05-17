@@ -1,6 +1,7 @@
 # Ignore dataset files
-# !model/dataset/
-model/dataset/**/*.jpg
+model/datasets/**/*.jpg
+model/preprocessing_result/*.png
+model/preprocessing_result_dataset/**/*.jpg
 
 # Ignore node package files
 node_modules
